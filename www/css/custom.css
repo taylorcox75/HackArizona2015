@@ -1,0 +1,68 @@
+/* Move down content because we have a fixed navbar that is 50px tall */
+body {
+  text-align: center;
+
+}
+
+
+/* .jumbotron means all things inside jumbotron, then text-align centers it*/
+
+/* unordered list in the class of nav, aka changing the buttons top right */
+ul.nav {
+	font-family: 'Indie Flower', cursive;
+	font-size: 18px;
+}
+/* makes the "One Million Lines" be the same font*/
+.navbar-header a {
+	font-family: 'Indie Flower', cursive;
+	font-size: 24px;
+}
+
+
+.fa-paper-plane-o {
+	color: ##F2A641;
+}
+
+.fa-paper-plane-o :hover{
+	color: #808080;
+}
+
+
+.Main-Call {
+	padding-top: 50px;
+  	padding-bottom: 20px;
+  	background-color: #F8F8F8;
+}
+
+form {
+	display: inline-block;
+    text-align: center;
+}
+
+
+.jumbotron {
+	text-align: center; 
+	padding-top: 200px;
+	background-image: url('../images/industrialBack2.gif');
+	background-size: 1400px 700px;
+	background-position: 0px -50px;
+}
+.ShowMe-container {
+	position: relative;
+	bottom: 170px;
+  	font-family: "HelveticaNeue-UltraLight";
+  	color: #F2A641;
+
+}
+
+.ShowMe-container :hover {
+	color:#808080
+}
+
+.Main-Call h3{
+	color: #006699;
+	font-family: "Courier New";
+}
+.Main-Call h3:hover{
+	color:#003399;
+}

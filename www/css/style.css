@@ -1,0 +1,84 @@
+
+
+/* Move down content because we have a fixed navbar that is 50px tall */
+
+body {
+  padding-top: 50px;
+  padding-bottom: 20px;
+}
+/* .jumbotron means all things inside jumbotron, then text-align centers it*/
+
+/* unordered list in the class of nav, aka changing the buttons top right */
+
+.login {
+	font-family: 'Indie Flower', cursive;
+	font-size: 18px;
+}
+
+ul.nav {
+	font-family: 'Indie Flower', cursive;
+	font-size: 18px;
+}
+/* makes the "One Million Lines" be the same font*/
+.navbar-header a {
+	font-family: 'Indie Flower', cursive;
+	font-size: 24px;
+}
+.shop-online {
+	background-color: #F8F8F8;
+} 
+.shop-online hr{
+	border-color: #006699;
+	width: 20%;
+	margin-top: 5px;
+}
+
+
+.shop-online h3, h2{
+	color: #006699;
+	font-family: "Indie Flower";
+}
+.shop-online h2:hover{
+	color:#003399;
+}
+
+
+
+.container img{
+	width: 70px;
+	height: 70px;
+}
+.jumbotron h2{
+	padding-top: 150px
+}
+.jumbotron {
+	padding-bottom: 50px
+	text-align: center; 
+	background-image: url('../images/oceanBack.gif');
+	background-size: 1500px 700px;
+}
+
+.container {
+	text-align: center;
+}
+
+
+
+.jumbotron h1 {
+	font-family: cursive;
+	font-size: 75px;
+	color: white;
+	margin-top: 0px;
+	margin-bottom: 50px;
+}
+
+.jumbotron p {
+	color: white;
+	margin-bottom: 30px;
+	padding: 0px 20px;
+}
+
+/* makes the red button be font size 24 instead of 18*/
+.btn-lg {
+	font-size: 36px;
+}

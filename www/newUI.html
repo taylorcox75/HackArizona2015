@@ -1,0 +1,167 @@
+<!DOCTYPE html>
+
+<head>
+    <!-- Respoke client library -->
+    <script src="https://cdn.respoke.io/respoke.min.js"></script>
+
+    <!-- jQuery, for this example -->
+    <script src="http://code.jquery.com/jquery-1.11.0.min.js"></script>
+    
+    <!-- Some simple styles to make things perty -->
+
+    <link rel="stylesheet" type="text/css" href="css/custom.css">
+    <link rel="stylesheet" type="text/css" href="css/bootstrap.min.css">
+
+    <link rel="stylesheet" href="fonts/font-awesome/css/font-awesome.min.css">
+    <link href='http://fonts.googleapis.com/css?family=Indie+Flower' rel='stylesheet' type='text/css'>
+
+</head>
+
+<body>
+
+    <div class="navbar navbar-inverse navbar-fixed-top" role="navigation">
+      <div class="container">
+        <div class="navbar-header">
+          <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+            <span class="sr-only">Toggle navigation</span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+          </button>
+        </div>
+        <div class="collapse navbar-collapse">
+          <ul class="nav navbar-nav navbar-right">
+            <li><a href="#">Who We Are</a></li>
+            <li><a href="#about">Get Involved</a></li>
+          </ul>
+          <ul class="nav navbar-nav navbar-left">
+            <li><a href="#">ShowMe</a></li>
+          </ul>
+        </div><!--/.nav-collapse -->
+      </div>
+    </div>
+
+    <div class="jumbotron">
+        <div class="ShowMe-container" >
+          <h1>ShowMe</h1>
+          <i class="fa fa-paper-plane-o fa-5x" id="logo"></i>
+          <h2>Teach and Follow</h2>
+          <!-- btn-danger is the class for a red button, primary is for blue-->
+          <!-- <p><a class="btn btn-danger btn-lg" role="button">Learn more &raquo;</a></p> -->
+            
+        </div>
+    </div> 
+
+    <div class="Main-Call">
+        <h3 id="status">Not Connected</h3>
+        <div id="login">
+            <input class="form-control" id="endpoint" placeholder="Username" type="text" />
+            <button class="btn btn-default" id="doLogin">Connect &raquo;</button>
+        </div>
+        
+        <div>
+            <input class="form-control" id="remoteId" placeholder="User to Call" type="text" />
+            <button class="btn btn-default" id="doCall">Call &raquo;</button>
+            <button class="btn btn-default" id="doHangUp">Hang Up &raquo;</button>
+        </div>
+
+
+
+    
+        <!-- The person you're calling -->
+        <div id="remoteVideoSource"></div>
+    
+        <!-- You -->
+        <div id="localVideoSource"></div>
+    
+        <script type="text/javascript">
+            // App ID value from the dev portal. You can play
+            // around with the supplied ID or replace it with
+            // your own.
+            var appid = "b4931d40-ff2b-4c46-8487-bf955a75501d";
+            var activeCall;
+            var endpointId;
+    
+            // Create the client object using the App ID 
+            var client = respoke.createClient({
+                appId: appid,
+                developmentMode: true
+            });
+    
+            // "connect" event fired after successful connection to Respoke
+            client.listen('connect', function() {
+                $("#status").html("Connected to Respoke as \"" + endpointId + "\"");
+            });
+    
+            // Connect to Respoke when the user clicks "connect"
+            $("#doLogin").click(function() {
+                $("#status").html("Connecting...");
+                endpointId = $("#endpoint").val();
+                client.connect({
+                    endpointId: endpointId // your username is the endpoint
+                });
+            });
+    
+            // Listen for incoming calls
+            client.listen('call', function(evt) {
+                activeCall = evt.call;
+    
+                // We only want to answer if we didn't initiate the call
+                if(activeCall.caller !== true) {
+                    activeCall.answer(callOptions);
+    
+                    // The hangup event indicates the call is over
+                    activeCall.listen('hangup', function () {
+                        hangUp();
+                    });
+                }
+            });
+    
+            // The options for our video call including constraints and callbacks
+            var callOptions = {
+                constraints: {audio: true, video: true},
+    
+                // Your video
+                onLocalMedia: function(evt) {
+                    setVideo('localVideoSource', evt.element)
+                },
+    
+                // Their video
+                onConnect: function(evt) {
+                    setVideo('remoteVideoSource', evt.element)
+                }
+            };
+    
+            // Adds the supplied video element as a child of the supplied element
+            function setVideo(elementId, videoElement) {
+                var videoParent = document.getElementById(elementId);
+                videoParent.innerHTML = "";
+                videoParent.appendChild(videoElement);
+            }
+    
+            // Call the recipient
+            $("#doCall").click(function() {
+                var recipientId = $("#remoteId").val();
+                var recipientEndpoint = client.getEndpoint({ id: recipientId });
+                activeCall = recipientEndpoint.startVideoCall(callOptions);
+            });
+    
+            // Hangup the call
+            $("#doHangUp").click(hangUp);
+    
+            // End the current call and clean up the DOM
+            function hangUp() {
+                activeCall.hangup();
+                activeCall = null;
+    
+                // Remove the video elements
+                $("#localVideoSource").html("");
+                $("#remoteVideoSource").html("");
+            }
+        </script>
+    </div>
+
+
+</body>
+
+</html>
