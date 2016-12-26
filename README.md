@@ -19,11 +19,11 @@ The official parrot mobile app looks for the drone on 192.168.1.1, thus most nod
 
 ### Node-JS Implementation
 ### Where the ip is the address specified above.
-var arDrone = require('ar-drone');
+`var arDrone = require('ar-drone');
 var drones = [
   arDrone.createClient({ip: '192.168.2.7'})
 
-];
+];`
 
 
 
