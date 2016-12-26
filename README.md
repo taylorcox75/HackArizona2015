@@ -11,7 +11,7 @@
 #### 2. Replace the ip address with a static ip address for your network
 Example:  Phone is broadcasting a hotspot called $Name.  When drone boots, it will connect to the network rather than try and be it's own hotspot.  It will request the static ip set 192.168.2.7.
 
-`killall udhcpd; iwconfig ath0 mode managed essid #Name; ifconfig ath0 192.168.2.7 netmask 255.255.255.0 up;`
+killall udhcpd; iwconfig ath0 mode managed essid #Name; ifconfig ath0 192.168.2.7 netmask 255.255.255.0 up;`
 
 
 ## IP-Address Jargon:
@@ -23,7 +23,7 @@ The official parrot mobile app looks for the drone on 192.168.1.1, thus most nod
 var drones = [
   arDrone.createClient({ip: '192.168.2.7'})
 
-];`
+];
 
 
 
